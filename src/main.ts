@@ -1,15 +1,13 @@
 import { AppModule } from './app.module';
 import { NestFactory } from '@nestjs/core';
-import { ConfigService } from '@nestjs/config';
+import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  // const configService = app.get(ConfigService);
-
+  app.useGlobalPipes(new ValidationPipe());
   const config = new DocumentBuilder()
-    .setTitle('Api example')
-    .setDescription('The Example API description')
+    .setTitle('Api Car Administration')
     .setVersion('1.0')
     .build();
 
