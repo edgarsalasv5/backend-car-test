@@ -18,7 +18,7 @@ export class Car {
   input_data: Date;
 
   @Prop()
-  status: Date;
+  status: boolean;
 
   @Prop()
   assigned_id: number;

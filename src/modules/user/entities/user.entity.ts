@@ -11,7 +11,7 @@ import {
 import * as bcrypt from 'bcrypt';
 
 @Entity('users')
-export class UsersEntity extends BaseEntity {
+export class UserEntity extends BaseEntity {
   @PrimaryGeneratedColumn({
     type: 'int',
   })

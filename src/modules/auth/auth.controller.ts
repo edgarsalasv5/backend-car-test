@@ -1,44 +1,24 @@
+import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { SignInDTO } from './dto/signin-dto';
 import { SignUpDTO } from './dto/signup-dto';
-import { UsersEntity } from '../user/dto/user.entity';
-import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
-import { UsersService } from '../user/user.service';
+import { Body, Controller, Post, Res } from '@nestjs/common';
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private authService: AuthService,
-    private usersService: UsersService,
-  ) {}
+  constructor(private authService: AuthService) {}
 
   @Post('sigin')
-  async signin(@Body() credentials: SignInDTO) {
+  async signin(@Res() res: Response, @Body() credentials: SignInDTO) {
     const { email, password } = credentials;
     const user = await this.authService.validateUser(email, password);
-    const token = await this.authService.generateAccessToken(email);
-    return {
-      user,
-      ...token,
-    };
+    const { access_token } = await this.authService.generateAccessToken(email);
+    return res.status(200).json({ user, access_token });
   }
 
   @Post('signup')
-  async signup(@Body() { email, name, password }: SignUpDTO) {
-    const userFound = await UsersEntity.findOne({ where: { email } });
-    if (userFound) throw new BadRequestException('Este usuario ya exisiste');
-
-    const createUser = UsersEntity.create({
-      name: name,
-      email: email,
-      password: password,
-    });
-
-    const user = await UsersEntity.save(createUser);
-    const token = await this.authService.generateAccessToken(email);
-    return {
-      user,
-      ...token,
-    };
+  async signup(@Res() res: Response, @Body() credentials: SignUpDTO) {
+    const payload = await this.authService.createUserAndToken(credentials);
+    return res.status(200).json(payload);
   }
 }
