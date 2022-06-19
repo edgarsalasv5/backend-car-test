@@ -12,6 +12,9 @@ export class Car {
   model: number;
 
   @Prop()
+  car_identification: number;
+
+  @Prop()
   color: string;
 
   @Prop()

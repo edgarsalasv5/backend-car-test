@@ -14,7 +14,7 @@ import { UserEntity } from '../user/entities/user.entity';
     ConfigModule.forRoot(),
     JwtModule.register({
       secret: 'password123',
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '1h' },
     }),
     UserModule,
     TypeOrmModule.forFeature([UserEntity]),

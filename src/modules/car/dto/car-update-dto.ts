@@ -1,24 +1,28 @@
-import { IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class UpdateCarDto {
+export class CarUpdateDto {
   @ApiProperty({ type: String })
   @IsString()
   brand: string;
 
   @ApiProperty({ type: Number })
-  @IsString()
+  @IsNumber()
   model: number;
+
+  @ApiProperty({ type: String })
+  @IsNumber()
+  car_identification: string;
 
   @ApiProperty({ type: String })
   @IsString()
   color: string;
 
   @ApiProperty({ type: Boolean })
-  @IsString()
+  @IsBoolean()
   status: boolean;
 
   @ApiProperty({ type: Number })
-  @IsString()
+  @IsNumber()
   assigned_id: number;
 }
