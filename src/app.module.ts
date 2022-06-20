@@ -16,10 +16,10 @@ import { UserEntity } from './modules/user/entities/user.entity';
     TypeOrmModule.forRoot({
       port: 5432,
       type: 'postgres',
-      host: 'localhost',
+      host: 'db-test.cjobv6edlmdo.us-east-2.rds.amazonaws.com',
       username: 'postgres',
-      password: 'password',
-      database: 'carpulpodb',
+      password: 'passwordpulpo',
+      database: 'postgres',
       synchronize: true,
       entities: [UserEntity],
     }),
