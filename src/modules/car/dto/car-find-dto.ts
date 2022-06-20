@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsEnum, IsOptional } from 'class-validator';
+import { Moment } from 'moment-timezone';
 
 enum eStatus {
   TRUE = 'true',
@@ -31,6 +32,11 @@ export class CarFindDto {
   @IsOptional()
   @IsEnum(eStatus)
   status: eStatus;
+
+  @ApiProperty({ type: String, required: false })
+  @IsOptional()
+  @IsString()
+  input_date: string;
 }
 
 export interface filterOptionsDto {
@@ -39,4 +45,5 @@ export interface filterOptionsDto {
   color?: string;
   status?: boolean;
   car_identification?: string;
+  input_date?: string;
 }

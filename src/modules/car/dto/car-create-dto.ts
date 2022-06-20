@@ -1,4 +1,4 @@
-import { IsBoolean, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CarCreateDto {
@@ -11,8 +11,12 @@ export class CarCreateDto {
   model: number;
 
   @ApiProperty({ type: String })
-  @IsNumber()
+  @IsString()
   car_identification: string;
+
+  @ApiProperty({ type: String })
+  @IsString()
+  input_date: string;
 
   @ApiProperty({ type: String })
   @IsString()
@@ -24,5 +28,6 @@ export class CarCreateDto {
 
   @ApiProperty({ type: Number })
   @IsNumber()
+  @IsOptional()
   assigned_id: number;
 }

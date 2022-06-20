@@ -12,13 +12,13 @@ export class Car {
   model: number;
 
   @Prop()
-  car_identification: number;
+  car_identification: string;
 
   @Prop()
   color: string;
 
   @Prop()
-  input_data: Date;
+  input_date: Date;
 
   @Prop()
   status: boolean;

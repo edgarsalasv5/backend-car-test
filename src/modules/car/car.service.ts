@@ -1,4 +1,5 @@
 import { Model } from 'mongoose';
+import * as moment from 'moment-timezone';
 import { InjectModel } from '@nestjs/mongoose';
 import { Car, CarDocument } from './dto/car.schema';
 import { NotFoundException } from '@nestjs/common';
@@ -24,18 +25,23 @@ export class CarService {
   }
 
   async createOne(userId: number, carDto: CarCreateDto) {
+    const inputDate = moment(carDto.input_date).format('YYYY-MM-DD');
+
     const newCar = new this.carEntity({
       ...carDto,
       created_id: userId,
+      input_date: inputDate,
     });
 
     return await newCar.save();
   }
 
   async updateOne(id: string, carDto: CarUpdateDto) {
-    const car = this.getById(id);
-    const updateCar = Object.assign(car, carDto);
-    return await this.carEntity.updateOne({ _id: id }, updateCar);
+    const car = await this.getById(id);
+    const inputDate = moment(carDto.input_date).format('YYYY-MM-DD');
+    const updateCar = Object.assign(car, { ...carDto, input_date: inputDate });
+    await this.carEntity.updateOne({ _id: id }, updateCar);
+    return updateCar;
   }
 
   async deleteOne(id: string) {
